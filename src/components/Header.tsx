@@ -1,28 +1,67 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const isHome = pathname === '/';
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // 首页且未滚动时，使用透明风格
+  const transparent = isHome && !scrolled;
 
   return (
-    <header className="sticky top-0 z-50 bg-apple-bg/80 backdrop-blur-xl border-b border-black/5">
+    <header
+      className={`sticky top-0 z-50 backdrop-blur-xl transition-all duration-300 ${
+        transparent
+          ? 'bg-transparent border-b border-white/10'
+          : 'bg-apple-bg/80 border-b border-black/5'
+      }`}
+    >
       <div className="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-apple-text hover:text-apple-accent transition-colors duration-200"
+          className={`text-lg font-semibold tracking-tight transition-colors duration-200 ${
+            transparent
+              ? 'text-white hover:text-white/80'
+              : 'text-apple-text hover:text-apple-accent'
+          }`}
         >
-          My Blog
+          MLZB Blog
         </Link>
 
         <nav className="hidden sm:flex items-center gap-1">
-          <Link href="/" className="btn-ghost text-xs">首页</Link>
-          <Link href="/admin/login" className="btn-ghost text-xs">管理</Link>
+          <Link
+            href="/"
+            className={`btn-ghost text-xs transition-colors ${
+              transparent ? 'text-white/80 hover:text-white hover:bg-white/10' : ''
+            }`}
+          >
+            首页
+          </Link>
+          <Link
+            href="/admin/login"
+            className={`btn-ghost text-xs transition-colors ${
+              transparent ? 'text-white/80 hover:text-white hover:bg-white/10' : ''
+            }`}
+          >
+            管理
+          </Link>
         </nav>
 
         <button
-          className="sm:hidden p-2 -mr-2 text-apple-secondary hover:text-apple-text transition-colors"
+          className={`sm:hidden p-2 -mr-2 transition-colors ${
+            transparent ? 'text-white/80 hover:text-white' : 'text-apple-secondary hover:text-apple-text'
+          }`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -37,10 +76,28 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="sm:hidden border-t border-black/5 bg-white animate-fade-in">
+        <div className={`sm:hidden border-t animate-fade-in ${
+          transparent ? 'border-white/10 bg-black/20 backdrop-blur-xl' : 'border-black/5 bg-white'
+        }`}>
           <div className="max-w-5xl mx-auto px-5 py-4 flex flex-col gap-1">
-            <Link href="/" className="block px-4 py-3 rounded-apple-sm hover:bg-black/5 text-sm font-medium transition-colors" onClick={() => setMenuOpen(false)}>首页</Link>
-            <Link href="/admin/login" className="block px-4 py-3 rounded-apple-sm hover:bg-black/5 text-sm font-medium transition-colors" onClick={() => setMenuOpen(false)}>管理</Link>
+            <Link
+              href="/"
+              className={`block px-4 py-3 rounded-apple-sm text-sm font-medium transition-colors ${
+                transparent ? 'text-white hover:bg-white/10' : 'hover:bg-black/5'
+              }`}
+              onClick={() => setMenuOpen(false)}
+            >
+              首页
+            </Link>
+            <Link
+              href="/admin/login"
+              className={`block px-4 py-3 rounded-apple-sm text-sm font-medium transition-colors ${
+                transparent ? 'text-white hover:bg-white/10' : 'hover:bg-black/5'
+              }`}
+              onClick={() => setMenuOpen(false)}
+            >
+              管理
+            </Link>
           </div>
         </div>
       )}
