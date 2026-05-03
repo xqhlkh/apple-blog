@@ -26,7 +26,7 @@ npm run dev
 ## 默认管理员账号
 
 - 用户名: `admin`
-- 密码: `admin123`
+- 密码: ``
 
 登录后请尽快修改密码（编辑 `src/lib/auth.ts` 中的 `seedAdmin` 函数修改默认密码）。
 
