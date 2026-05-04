@@ -9,7 +9,6 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-apple-bg/80 backdrop-blur-xl border-b border-black/5">
       <div className="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between">
-        {/* Logo */}
         <Link
           href="/"
           className="text-lg font-semibold tracking-tight text-apple-text hover:text-apple-accent transition-colors duration-200"
@@ -17,17 +16,11 @@ export default function Header() {
           My Blog
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden sm:flex items-center gap-1">
-          <Link href="/" className="btn-ghost text-xs">
-            首页
-          </Link>
-          <Link href="/admin/login" className="btn-ghost text-xs">
-            管理
-          </Link>
+          <Link href="/" className="btn-ghost text-xs">首页</Link>
+          <Link href="/admin/login" className="btn-ghost text-xs">管理</Link>
         </nav>
 
-        {/* Mobile Nav Toggle */}
         <button
           className="sm:hidden p-2 -mr-2 text-apple-secondary hover:text-apple-text transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -43,16 +36,11 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {menuOpen && (
         <div className="sm:hidden border-t border-black/5 bg-white animate-fade-in">
           <div className="max-w-5xl mx-auto px-5 py-4 flex flex-col gap-1">
-            <Link href="/" className="block px-4 py-3 rounded-apple-sm hover:bg-black/5 text-sm font-medium transition-colors" onClick={() => setMenuOpen(false)}>
-              首页
-            </Link>
-            <Link href="/admin/login" className="block px-4 py-3 rounded-apple-sm hover:bg-black/5 text-sm font-medium transition-colors" onClick={() => setMenuOpen(false)}>
-              管理
-            </Link>
+            <Link href="/" className="block px-4 py-3 rounded-apple-sm hover:bg-black/5 text-sm font-medium transition-colors" onClick={() => setMenuOpen(false)}>首页</Link>
+            <Link href="/admin/login" className="block px-4 py-3 rounded-apple-sm hover:bg-black/5 text-sm font-medium transition-colors" onClick={() => setMenuOpen(false)}>管理</Link>
           </div>
         </div>
       )}

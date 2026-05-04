@@ -1,4 +1,4 @@
-import { getDb } from './db';
+import { getUserByUsername, createUser } from './db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
@@ -28,7 +28,7 @@ export function verifyToken(token: string): { userId: number; username: string }
   }
 }
 
-// ---- Session helpers (server components & API routes) ----
+// ---- Session helpers ----
 export async function getSession(): Promise<{ userId: number; username: string } | null> {
   const cookieStore = cookies();
   const token = cookieStore.get(TOKEN_NAME)?.value;
@@ -46,11 +46,10 @@ export function clearSessionCookie(): string {
 
 // ---- Seed default admin ----
 export function seedAdmin() {
-  const db = getDb();
-  const existing = db.prepare('SELECT id FROM users WHERE username = ?').get('admin');
+  const existing = getUserByUsername('admin');
   if (!existing) {
     const hash = hashPassword('admin123');
-    db.prepare('INSERT INTO users (username, password_hash) VALUES (?, ?)').run('admin', hash);
+    createUser('admin', hash);
     console.log('Default admin created: admin / admin123');
   }
 }

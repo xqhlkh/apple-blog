@@ -1,19 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb, Post } from '@/lib/db';
+import { getAllPosts, slugExists, createPost } from '@/lib/db';
 import { verifyToken } from '@/lib/auth';
 
-// GET /api/posts — list all posts (admin only, including unpublished)
+// GET /api/posts — list all posts (admin only)
 export async function GET(request: NextRequest) {
   const token = request.cookies.get('blog_admin_token')?.value;
   if (!token || !verifyToken(token)) {
     return NextResponse.json({ error: '未登录' }, { status: 401 });
   }
 
-  const db = getDb();
-  const posts = db
-    .prepare('SELECT * FROM posts ORDER BY updated_at DESC')
-    .all() as Post[];
-
+  const posts = getAllPosts();
   return NextResponse.json(posts);
 }
 
@@ -31,22 +27,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: '标题和链接不能为空' }, { status: 400 });
     }
 
-    const db = getDb();
-
-    // Check slug uniqueness
-    const existing = db.prepare('SELECT id FROM posts WHERE slug = ?').get(slug);
-    if (existing) {
+    if (slugExists(slug)) {
       return NextResponse.json({ error: '该链接已被使用' }, { status: 409 });
     }
 
-    const result = db
-      .prepare(
-        `INSERT INTO posts (title, slug, content, excerpt, cover_image, tags, published)
-         VALUES (?, ?, ?, ?, ?, ?, ?)`
-      )
-      .run(title, slug, content || '', excerpt || '', cover_image || '', tags || '', published ? 1 : 0);
-
-    const post = db.prepare('SELECT * FROM posts WHERE id = ?').get(result.lastInsertRowid) as Post;
+    const post = createPost({
+      title,
+      slug,
+      content: content || '',
+      excerpt: excerpt || '',
+      cover_image: cover_image || '',
+      tags: tags || '',
+      published: published || 0,
+    });
 
     return NextResponse.json(post, { status: 201 });
   } catch {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb, Post } from '@/lib/db';
+import { getPostById, slugExists, updatePost, deletePost } from '@/lib/db';
 import { verifyToken } from '@/lib/auth';
 
 // PUT /api/posts/[id] — update a post
@@ -20,21 +20,20 @@ export async function PUT(
       return NextResponse.json({ error: '标题和链接不能为空' }, { status: 400 });
     }
 
-    const db = getDb();
-
-    // Check slug uniqueness (excluding current post)
-    const existing = db.prepare('SELECT id FROM posts WHERE slug = ? AND id != ?').get(slug, id);
-    if (existing) {
+    if (slugExists(slug, id)) {
       return NextResponse.json({ error: '该链接已被使用' }, { status: 409 });
     }
 
-    db.prepare(
-      `UPDATE posts SET title = ?, slug = ?, content = ?, excerpt = ?,
-       cover_image = ?, tags = ?, published = ?, updated_at = datetime('now')
-       WHERE id = ?`
-    ).run(title, slug, content || '', excerpt || '', cover_image || '', tags || '', published ? 1 : 0, id);
+    const post = updatePost(id, {
+      title,
+      slug,
+      content: content || '',
+      excerpt: excerpt || '',
+      cover_image: cover_image || '',
+      tags: tags || '',
+      published: published || 0,
+    });
 
-    const post = db.prepare('SELECT * FROM posts WHERE id = ?').get(id) as Post;
     if (!post) {
       return NextResponse.json({ error: '文章不存在' }, { status: 404 });
     }
@@ -56,15 +55,12 @@ export async function DELETE(
   }
 
   try {
-    const db = getDb();
     const id = parseInt(params.id);
+    const success = deletePost(id);
 
-    const post = db.prepare('SELECT * FROM posts WHERE id = ?').get(id) as Post;
-    if (!post) {
+    if (!success) {
       return NextResponse.json({ error: '文章不存在' }, { status: 404 });
     }
-
-    db.prepare('DELETE FROM posts WHERE id = ?').run(id);
 
     return NextResponse.json({ success: true });
   } catch {

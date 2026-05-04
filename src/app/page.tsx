@@ -1,17 +1,13 @@
-import { getDb, Post } from '@/lib/db';
+import { getPublishedPosts } from '@/lib/db';
 import PostCard from '@/components/PostCard';
 
 export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
-  const db = getDb();
-  const posts = db
-    .prepare('SELECT * FROM posts WHERE published = 1 ORDER BY created_at DESC')
-    .all() as Post[];
+  const posts = getPublishedPosts();
 
   return (
     <div>
-      {/* Hero Section */}
       <section className="py-16 sm:py-24 px-5">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-[44px] sm:text-[64px] font-semibold tracking-[-0.03em] leading-[1.05] text-apple-text animate-fade-up">
@@ -23,7 +19,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Posts Grid */}
       <section className="pb-24 px-5">
         <div className="max-w-4xl mx-auto">
           {posts.length === 0 ? (

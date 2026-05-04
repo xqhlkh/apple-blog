@@ -26,9 +26,9 @@ npm run dev
 ## 默认管理员账号
 
 - 用户名: `admin`
-- 密码: `admin123`
+- 密码: ``
 
-登录后请尽快修改密码（编辑 `src/lib/auth.ts` 中的 `seedAdmin` 函数）。
+登录后请尽快修改密码（编辑 `src/lib/auth.ts` 中的 `seedAdmin` 函数修改默认密码）。
 
 ## 文章写作
 
@@ -59,23 +59,19 @@ apple-blog/
 
 ## 部署
 
-### Vercel（推荐）
-
-由于使用了 SQLite，推荐部署到支持本地文件系统的平台：
-
-1. 推送代码到 GitHub
-2. 在 Vercel 导入项目
-3. 设置环境变量 `JWT_SECRET`（建议使用随机字符串）
-4. 部署
-
-> 注意：Vercel 的无服务器函数有一定限制，SQLite 数据库文件在冷启动时可能会丢失。如需持久化，建议使用 Turso（SQLite 云服务）或迁移到 PostgreSQL。
-
 ### 本地服务器
 
 ```bash
 npm run build
 npm start
 ```
+
+### Vercel
+
+1. 推送代码到 GitHub
+2. 在 Vercel 导入项目
+3. 设置环境变量 `JWT_SECRET`（建议使用随机字符串）
+4. 注意：SQLite 文件在 Vercel serverless 环境中可能不持久，生产环境建议迁移到 Turso 或 PostgreSQL。
 
 ## 技术栈
 

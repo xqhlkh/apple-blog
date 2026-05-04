@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import SF Pro font (Apple system font fallback chain already defined in tailwind config) */
-
 @layer base {
   * {
     -webkit-font-smoothing: antialiased;
@@ -21,7 +19,6 @@
 }
 
 @layer components {
-  /* Apple-style buttons */
   .btn-primary {
     @apply inline-flex items-center justify-center px-6 py-3
            bg-apple-accent text-white font-medium
@@ -50,14 +47,12 @@
            hover:bg-black/5 hover:text-apple-text;
   }
 
-  /* Card */
   .card {
     @apply bg-white rounded-apple shadow-apple
            transition-all duration-300 ease-out
            hover:shadow-apple-hover;
   }
 
-  /* Input fields */
   .input-apple {
     @apply w-full px-4 py-3 bg-apple-bg
            border border-apple-border rounded-apple-sm
@@ -68,7 +63,6 @@
            focus:bg-white;
   }
 
-  /* Tag */
   .tag {
     @apply inline-block px-3 py-1 bg-black/5 text-apple-secondary
            rounded-full text-xs font-medium tracking-wide
@@ -76,7 +70,6 @@
            hover:bg-black/10 hover:text-apple-text;
   }
 
-  /* Prose for markdown content */
   .prose-apple {
     @apply text-[17px] leading-relaxed text-apple-text;
   }
@@ -136,16 +129,9 @@
   }
 }
 
-/* Animations */
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {

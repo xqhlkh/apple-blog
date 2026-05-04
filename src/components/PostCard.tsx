@@ -16,7 +16,6 @@ export default function PostCard({ post }: { post: Post }) {
         </div>
       )}
       <div className="p-6 sm:p-8">
-        {/* Tags */}
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-3">
             {tags.map((tag: string) => (
@@ -24,33 +23,18 @@ export default function PostCard({ post }: { post: Post }) {
             ))}
           </div>
         )}
-
-        {/* Title */}
         <h2 className="text-xl sm:text-2xl font-semibold tracking-[-0.01em] text-apple-text mb-2 group-hover:text-apple-accent transition-colors duration-200 text-balance">
           {post.title}
         </h2>
-
-        {/* Excerpt */}
         {post.excerpt && (
           <p className="text-sm text-apple-secondary leading-relaxed line-clamp-2">
             {post.excerpt}
           </p>
         )}
-
-        {/* Date */}
         <p className="mt-4 text-xs text-apple-secondary">
-          {formatDate(post.created_at)}
+          {new Date(post.created_at).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
       </div>
     </Link>
   );
-}
-
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
 }

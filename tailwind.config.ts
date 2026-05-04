@@ -48,10 +48,6 @@ const config: Config = {
         'apple-hover': '0 8px 40px rgba(0, 0, 0, 0.08)',
         'apple-btn': '0 2px 8px rgba(0, 113, 227, 0.3)',
       },
-      spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-      },
     },
   },
   plugins: [],
