@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import SF Pro font (Apple system font fallback chain already defined in tailwind config) */
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-apple-bg text-apple-text font-sans;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    @apply bg-apple-accent/20;
+  }
+}
+
+@layer components {
+  /* Apple-style buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3
+           bg-apple-accent text-white font-medium
+           rounded-full text-sm tracking-wide
+           shadow-apple-btn
+           transition-all duration-200 ease-out
+           hover:bg-apple-accent-hover hover:shadow-lg
+           active:scale-[0.97];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3
+           bg-white text-apple-accent font-medium
+           rounded-full text-sm tracking-wide
+           border border-apple-accent/20
+           transition-all duration-200 ease-out
+           hover:bg-apple-accent/5
+           active:scale-[0.97];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2
+           text-apple-secondary font-medium
+           rounded-full text-sm tracking-wide
+           transition-all duration-200 ease-out
+           hover:bg-black/5 hover:text-apple-text;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white rounded-apple shadow-apple
+           transition-all duration-300 ease-out
+           hover:shadow-apple-hover;
+  }
+
+  /* Input fields */
+  .input-apple {
+    @apply w-full px-4 py-3 bg-apple-bg
+           border border-apple-border rounded-apple-sm
+           text-apple-text placeholder:text-apple-secondary
+           text-sm font-sans
+           transition-all duration-200 ease-out
+           focus:outline-none focus:border-apple-accent focus:ring-4 focus:ring-apple-accent/10
+           focus:bg-white;
+  }
+
+  /* Tag */
+  .tag {
+    @apply inline-block px-3 py-1 bg-black/5 text-apple-secondary
+           rounded-full text-xs font-medium tracking-wide
+           transition-colors duration-200 ease-out
+           hover:bg-black/10 hover:text-apple-text;
+  }
+
+  /* Prose for markdown content */
+  .prose-apple {
+    @apply text-[17px] leading-relaxed text-apple-text;
+  }
+
+  .prose-apple h1 {
+    @apply text-[40px] font-semibold tracking-[-0.02em] mt-0 mb-6 text-apple-text;
+  }
+
+  .prose-apple h2 {
+    @apply text-[28px] font-semibold tracking-[-0.01em] mt-12 mb-4 text-apple-text;
+  }
+
+  .prose-apple h3 {
+    @apply text-[22px] font-medium mt-8 mb-3 text-apple-text;
+  }
+
+  .prose-apple p {
+    @apply mb-5 leading-[1.6];
+  }
+
+  .prose-apple img {
+    @apply rounded-apple my-8 w-full;
+  }
+
+  .prose-apple blockquote {
+    @apply border-l-4 border-apple-accent pl-6 my-8 text-apple-secondary italic;
+  }
+
+  .prose-apple code {
+    @apply bg-black/5 px-1.5 py-0.5 rounded-md text-[15px] font-mono;
+  }
+
+  .prose-apple pre {
+    @apply bg-[#1d1d1f] text-white p-6 rounded-apple overflow-x-auto my-8 text-sm;
+  }
+
+  .prose-apple pre code {
+    @apply bg-transparent p-0 text-white;
+  }
+
+  .prose-apple ul, .prose-apple ol {
+    @apply mb-5 pl-6;
+  }
+
+  .prose-apple li {
+    @apply mb-2;
+  }
+
+  .prose-apple a {
+    @apply text-apple-accent no-underline hover:underline;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
