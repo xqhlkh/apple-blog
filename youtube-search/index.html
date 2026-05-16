@@ -8,42 +8,51 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-    background: #f5f5f7;
-    color: #1d1d1f;
-    min-height: 100vh;
+    background: #f5f5f7; color: #1d1d1f; min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
   .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
-  .header { text-align: center; margin-bottom: 36px; }
+  .header { text-align: center; margin-bottom: 28px; }
   .header h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; }
-  .header p { color: #86868b; font-size: 15px; margin-top: 6px; }
+  .header p { color: #86868b; font-size: 15px; margin-top: 4px; }
 
-  /* ─── API Key Setup ─── */
-  .api-setup {
+  /* ─── Key Management ─── */
+  .keys-section {
     background: #fff; border-radius: 18px; padding: 20px 24px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.04); margin-bottom: 24px;
-    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
   }
-  .api-setup label { font-size: 13px; font-weight: 600; color: #86868b; white-space: nowrap; }
-  .api-setup input {
-    flex: 1; min-width: 180px; padding: 10px 16px;
-    border: 1px solid #d2d2d7; border-radius: 12px;
-    font-size: 13px; font-family: monospace; outline: none;
-    transition: border-color .2s, box-shadow .2s; background: #f5f5f7;
+  .keys-section h2 { font-size: 14px; font-weight: 600; color: #86868b; margin-bottom: 12px; }
+  .key-row {
+    display: flex; align-items: center; gap: 8px; padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0; flex-wrap: wrap;
   }
-  .api-setup input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); background: #fff; }
-  .api-setup button {
-    padding: 10px 20px; border-radius: 20px; border: none; font-size: 13px; font-weight: 600;
+  .key-row:last-child { border-bottom: none; }
+  .key-label { font-size: 12px; color: #86868b; min-width: 50px; }
+  .key-preview { flex: 1; font-family: monospace; font-size: 12px; color: #1d1d1f; min-width: 140px; }
+  .key-delete {
+    padding: 4px 12px; border-radius: 12px; border: 1px solid #e5e5e7;
+    background: #fff; color: #cc2936; font-size: 11px; cursor: pointer; transition: all .2s;
+  }
+  .key-delete:hover { background: #fff1f0; border-color: #cc2936; }
+  .add-key {
+    display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;
+  }
+  .add-key input {
+    flex: 1; min-width: 180px; padding: 9px 14px; border: 1px solid #d2d2d7;
+    border-radius: 12px; font-size: 13px; font-family: monospace; outline: none;
+    background: #f5f5f7; transition: border-color .2s, box-shadow .2s;
+  }
+  .add-key input:focus { border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0,113,227,0.1); background: #fff; }
+  .add-key button {
+    padding: 9px 20px; border-radius: 20px; border: none; font-size: 13px; font-weight: 600;
     cursor: pointer; transition: all .2s; color: #fff; background: #0071e3;
   }
-  .api-setup button:hover { background: #0077ed; }
-  .api-setup button:active { transform: scale(0.97); }
-  .api-hint { font-size: 12px; color: #86868b; margin-top: -16px; margin-bottom: 24px; text-align: center; }
+  .add-key button:hover { background: #0077ed; }
+  .add-key button:active { transform: scale(0.97); }
+  .no-keys { font-size: 13px; color: #86868b; text-align: center; padding: 12px 0; }
 
   /* ─── Search Bar ─── */
-  .search-bar {
-    display: flex; gap: 10px; margin-bottom: 32px;
-  }
+  .search-bar { display: flex; gap: 10px; margin-bottom: 32px; }
   .search-bar input {
     flex: 1; padding: 14px 20px; font-size: 16px;
     border: 1px solid #d2d2d7; border-radius: 24px;
@@ -62,10 +71,7 @@
   .search-bar button:disabled { opacity: 0.5; cursor: not-allowed; }
 
   /* ─── Results ─── */
-  .error-msg {
-    text-align: center; padding: 20px; color: #cc2936;
-    background: #fff1f0; border-radius: 12px; font-size: 14px;
-  }
+  .error-msg { text-align: center; padding: 20px; color: #cc2936; background: #fff1f0; border-radius: 12px; font-size: 14px; }
   .results-info { text-align: center; color: #86868b; font-size: 13px; margin-bottom: 16px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
   .card {
@@ -91,10 +97,7 @@
     border-radius: 50%; animation: spin .6s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .footer {
-    text-align: center; padding: 40px 20px; color: #86868b; font-size: 12px;
-    border-top: 1px solid #e5e5e7; margin-top: 40px;
-  }
+  .footer { text-align: center; padding: 40px 20px; color: #86868b; font-size: 12px; border-top: 1px solid #e5e5e7; margin-top: 40px; }
 </style>
 </head>
 <body>
@@ -105,16 +108,19 @@
     <p>输入关键词搜索 YouTube 视频</p>
   </div>
 
-  <!-- API Key Setup -->
-  <div class="api-setup">
-    <label for="apiKeyInput">API Key</label>
-    <input id="apiKeyInput" type="password" placeholder="粘贴你的 YouTube Data API v3 Key">
-    <button onclick="saveApiKey()">保存</button>
+  <!-- Key Management -->
+  <div class="keys-section">
+    <h2>API Keys（存储在服务器）</h2>
+    <div id="keyList"><div class="no-keys">加载中...</div></div>
+    <div class="add-key">
+      <input id="newKeyInput" type="text" placeholder="粘贴 YouTube Data API v3 Key">
+      <button onclick="addKey()">添加 Key</button>
+    </div>
+    <p style="font-size:11px;color:#86868b;margin-top:10px;text-align:center;">
+      <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener" style="color:#0071e3;">获取 API Key →</a>
+      &nbsp;|&nbsp; 每个 Key 每天有 10,000 配额，多加几个轮流用
+    </p>
   </div>
-  <p class="api-hint">
-    Key 仅保存在你的浏览器中，不会上传到服务器。
-    <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener" style="color:#0071e3;">获取 API Key →</a>
-  </p>
 
   <!-- Search Bar -->
   <div class="search-bar">
@@ -129,38 +135,69 @@
 </div>
 
 <script>
-  // ─── API Key management ───
-  const STORAGE_KEY = 'mlzb_youtube_api_key';
-
-  function getApiKey() {
-    return localStorage.getItem(STORAGE_KEY) || '';
+  // ─── Key Management ───
+  async function loadKeys() {
+    try {
+      const res = await fetch('/api/keys');
+      const data = await res.json();
+      const el = document.getElementById('keyList');
+      if (data.keys.length === 0) {
+        el.innerHTML = '<div class="no-keys">还没有添加 API Key，请在下方添加</div>';
+      } else {
+        el.innerHTML = data.keys.map(k => `
+          <div class="key-row">
+            <span class="key-label">Key ${k.index + 1}</span>
+            <span class="key-preview">${k.preview}</span>
+            <button class="key-delete" onclick="deleteKey(${k.index})">删除</button>
+          </div>
+        `).join('');
+      }
+    } catch (err) {
+      document.getElementById('keyList').innerHTML = '<div class="no-keys">加载失败</div>';
+    }
   }
 
-  function saveApiKey() {
-    const val = document.getElementById('apiKeyInput').value.trim();
-    if (!val) { alert('请输入 API Key'); return; }
-    localStorage.setItem(STORAGE_KEY, val);
-    alert('API Key 已保存 ✓');
+  async function addKey() {
+    const input = document.getElementById('newKeyInput');
+    const key = input.value.trim();
+    if (!key) { alert('请输入 API Key'); return; }
+    try {
+      const res = await fetch('/api/keys', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key }),
+      });
+      const data = await res.json();
+      if (!res.ok) { alert(data.error); return; }
+      input.value = '';
+      loadKeys();
+    } catch { alert('添加失败'); }
   }
 
-  document.getElementById('apiKeyInput').value = getApiKey();
+  async function deleteKey(index) {
+    if (!confirm('确定删除这个 Key？')) return;
+    try {
+      await fetch(`/api/keys/${index}`, { method: 'DELETE' });
+      loadKeys();
+    } catch { alert('删除失败'); }
+  }
+
+  loadKeys();
 
   // ─── Search ───
   async function search() {
     const q = document.getElementById('searchInput').value.trim();
-    const apiKey = getApiKey();
     const btn = document.getElementById('searchBtn');
     const results = document.getElementById('results');
 
     if (!q) { results.innerHTML = '<div class="error-msg">请输入搜索关键词</div>'; return; }
-    if (!apiKey) { results.innerHTML = '<div class="error-msg">请先填入 YouTube API Key</div>'; return; }
 
     btn.disabled = true;
     btn.textContent = '搜索中...';
     results.innerHTML = '<div class="spinner"><div></div></div>';
 
     try {
-      const res = await fetch(`/api/youtube/search?q=${encodeURIComponent(q)}&apiKey=${encodeURIComponent(apiKey)}`);
+      const res = await fetch(`/api/youtube/search?q=${encodeURIComponent(q)}`);
       const data = await res.json();
 
       if (!res.ok) {
@@ -168,7 +205,7 @@
         return;
       }
 
-      if (data.videos.length === 0) {
+      if (!data.videos || data.videos.length === 0) {
         results.innerHTML = '<div class="error-msg">没有找到相关视频</div>';
         return;
       }
