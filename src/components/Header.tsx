@@ -74,12 +74,12 @@ export default function Header() {
             管理
           </Link>
           <a
-            href="/aichat"
+            href="/aichat/"
             className={`btn-ghost text-xs transition-colors ${
               transparent ? 'text-white/90 hover:text-white hover:bg-white/15' : ''
             }`}
           >
-            AI Chat
+            YT 视频
           </a>
 
           {/* 主题切换按钮 */}
