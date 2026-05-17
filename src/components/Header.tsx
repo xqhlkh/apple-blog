@@ -130,7 +130,7 @@ export default function Header() {
           <div className="max-w-5xl mx-auto px-5 py-4 flex flex-col gap-1">
             <Link href="/" className={`block px-4 py-3 rounded-apple-sm text-sm font-medium transition-colors ${transparent ? 'text-white hover:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5 text-apple-text dark:text-dark-text'}`} onClick={() => setMenuOpen(false)}>首页</Link>
             <Link href="/admin/login" className={`block px-4 py-3 rounded-apple-sm text-sm font-medium transition-colors ${transparent ? 'text-white hover:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5 text-apple-text dark:text-dark-text'}`} onClick={() => setMenuOpen(false)}>管理</Link>
-            <a href="/aichat" className={`block px-4 py-3 rounded-apple-sm text-sm font-medium transition-colors ${transparent ? 'text-white hover:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5 text-apple-text dark:text-dark-text'}`} onClick={() => setMenuOpen(false)}>AI Chat</a>
+            <a href="/aichat/" className={`block px-4 py-3 rounded-apple-sm text-sm font-medium transition-colors ${transparent ? 'text-white hover:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5 text-apple-text dark:text-dark-text'}`} onClick={() => setMenuOpen(false)}>YT 视频</a>
           </div>
         </div>
       )}
